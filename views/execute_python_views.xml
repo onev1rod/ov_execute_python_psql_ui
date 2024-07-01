@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!--    Tree Views-->
+    <record id="view_execute_python_tree" model="ir.ui.view">
+        <field name="name">view.execute.python.tree</field>
+        <field name="model">execute.python</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree sample="1" default_order="create_date desc">
+                <field name="name"/>
+                <field name="last_execute"/>
+            </tree>
+        </field>
+    </record>
+    <!--    Form Views-->
+    <record id="view_execute_python_form" model="ir.ui.view">
+        <field name="name">view.execute.python.form</field>
+        <field name="model">execute.python</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="execute_action" type="object" string="Execute" class="oe_stat_button"
+                                icon="fa-code" data-hotkey="e"/>
+                        <button name="clear_action" type="object" string="Clear" class="oe_stat_button"
+                                icon="fa-refresh" data-hotkey="r"/>
+                        <button name="download_action" type="object" string="Download" class="oe_stat_button"
+                                icon="fa-download" data-hotkey="d"/>
+                    </div>
+                    <div class="oe_title mb-3">
+                        <h1>
+                            <field name="name"/>
+                            <field name="active" invisible="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <field name="last_execute"/>
+                    </group>
+                    <separator string="Generate your python code below"/>
+                    <group>
+                        <field name="python_code" colspan="2" options="{'mode': 'python'}" widget="ace" nolabel="1"/>
+                    </group>
+                    <group>
+                        <separator string="Result"/>
+                        <field name="result" nolabel="1"/>
+                    </group>
+                    <separator/>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" groups="base.group_user"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <!--    Action Views-->
+    <record id="action_execute_python" model="ir.actions.act_window">
+        <field name="name">Execute Python</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">execute.python</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+    </record>
+</odoo>

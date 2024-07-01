@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <menuitem id="menu_execute_code" name="Execute" parent="base.menu_custom">
+        <menuitem id="menu_execute_python" name="Python" action="action_execute_python"/>
+        <menuitem id="menu_execute_psql" name="PostgreSQL" action="action_execute_postgres"/>
+    </menuitem>
+</odoo>
