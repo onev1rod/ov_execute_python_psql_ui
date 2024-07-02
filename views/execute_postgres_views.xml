@@ -6,6 +6,7 @@
         <field name="arch" type="xml">
             <tree sample="1" default_order="create_date desc">
                 <field name="name"/>
+                <field name="last_execute"/>
             </tree>
         </field>
     </record>
@@ -28,10 +29,18 @@
                             <field name="active" invisible="1"/>
                         </h1>
                     </div>
+                    <group>
+                        <field name="last_execute"/>
+                    </group>
                     <separator string="Generate your Query below"/>
                     <group>
-                        <field name="psql_query" colspan="2" options="{'mode': 'python'}" widget="ace" placeholder="Type Your Query" nolabel="1"/>
-                        <field name="helpful_commands" colspan="2" readonly="1" nolabel="1"/>
+                        <field name="psql_query" colspan="2" options="{'mode': 'python'}" widget="ace"
+                               placeholder="Type Your Query" nolabel="1"/>
+                        <div class="alert alert-warning d-flex align-items-center" colspan="2" role="alert">
+                            <div colspan="2">
+                            <field name="helpful_commands" colspan="2" nolabel="1"/>
+                        </div>
+                        </div>
                     </group>
                     <group>
                         <separator string="Result"/>
