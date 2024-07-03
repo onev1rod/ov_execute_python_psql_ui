@@ -23,6 +23,8 @@ class ExecutePython(models.Model):
     python_code_file = fields.Binary(string="Python Code File", readonly=1, attachment=True)
     result = fields.Text(string="Result", require=True, readonly=1)
     last_execute = fields.Datetime(string="Last Execute", required=True, default=fields.Datetime.now, readonly=1)
+    priority = fields.Selection([('0', 'Normal'),('1','Favorite')], string="Favorite")
+
     def execute_action(self):
         local_dict = {'self': self, 'user': self.env.user}
         for record in self:

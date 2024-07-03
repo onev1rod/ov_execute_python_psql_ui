@@ -1,10 +1,11 @@
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError
-
+import psycopg2
 
 class ExecutePostgres(models.Model):
     _name = "execute.postgres"
     _description = "Execute PostgreSQL"
+    _inherit = ['mail.thread', 'mail.activity.mixin']
 
     HELPFUL_COMMANDS = """
     <p style='color:red;font-size:16px;'><b>Note before executing:<b></p>
@@ -16,6 +17,7 @@ class ExecutePostgres(models.Model):
     result = fields.Html(string="Result", readonly=1)
     helpful_commands = fields.Html(string='Helpful Commands', readonly=1, default=HELPFUL_COMMANDS)
     last_execute = fields.Datetime(string="Last Execute", required=True, default=fields.Datetime.now, readonly=1)
+    priority = fields.Selection([('0', 'Normal'),('1','Favorite')], string="Favorite")
 
     def execute_action(self):
         try:

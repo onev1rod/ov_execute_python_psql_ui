@@ -15,7 +15,6 @@
     ],
     # data files containing optionally loaded demonstration data
     'demo': [
-
     ],
     'images': [],
     'application': 'True',

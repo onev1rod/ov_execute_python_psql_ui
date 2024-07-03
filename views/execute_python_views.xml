@@ -7,6 +7,7 @@
         <field name="type">tree</field>
         <field name="arch" type="xml">
             <tree sample="1" default_order="create_date desc">
+                <field name="priority" widget="priority" optional="show" nolabel="1" />
                 <field name="name"/>
                 <field name="last_execute"/>
             </tree>
@@ -28,9 +29,10 @@
                         <button name="download_action" type="object" string="Download" class="oe_stat_button"
                                 icon="fa-download" data-hotkey="d"/>
                     </div>
-                    <div class="oe_title mb-3">
-                        <h1>
-                            <field name="name"/>
+                    <div class="oe_title mb-2">
+                        <h1 class="d-flex align-items-center">
+                            <field name="priority" class="me-3" nolabel="1" widget="priority"/>
+                            <field name="name" placeholder="e.g. Python"/>
                             <field name="active" invisible="1"/>
                         </h1>
                     </div>
@@ -53,6 +55,19 @@
                     </div>
                 </sheet>
             </form>
+        </field>
+    </record>
+    <!--    Search Views-->
+    <record id="search_execute_python_view" model="ir.ui.view">
+        <field name="name">search.execute.python.view</field>
+        <field name="model">execute.python</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" string="Name"/>
+                <filter name="filter_favorite" string="Favorite" domain="[('priority', '=', '1')]"/>
+                <separator/>
+                <filter name="filter_archive" string="Archived" domain="[('active', '=', False)]"/>
+            </search>
         </field>
     </record>
     <!--    Action Views-->

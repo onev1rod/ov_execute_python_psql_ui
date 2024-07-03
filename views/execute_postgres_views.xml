@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
+    <!--    Tree Views-->
     <record id="view_execute_postgres_tree" model="ir.ui.view">
         <field name="name">view.execute.postgres.tree</field>
         <field name="model">execute.postgres</field>
         <field name="arch" type="xml">
             <tree sample="1" default_order="create_date desc">
+                <field name="priority" widget="priority" optional="show" nolabel="1"/>
                 <field name="name"/>
                 <field name="last_execute"/>
             </tree>
         </field>
     </record>
-
+    <!--    Form Views-->
     <record id="view_execute_postgres_form" model="ir.ui.view">
         <field name="name">view.execute.postgres.form</field>
         <field name="model">execute.postgres</field>
@@ -23,8 +25,9 @@
                         <button name="clear_action" type="object" string="Clear" class="oe_stat_button"
                                 icon="fa-refresh" data-hotkey="r"/>
                     </div>
-                    <div class="oe_title">
-                        <h1>
+                    <div class="oe_title mb-2">
+                        <h1 class="d-flex align-items-center">
+                            <field name="priority" class="me-3" nolabel="1" widget="priority"/>
                             <field name="name" placeholder="e.g. PostgreSQL"/>
                             <field name="active" invisible="1"/>
                         </h1>
@@ -38,19 +41,38 @@
                                placeholder="Type Your Query" nolabel="1"/>
                         <div class="alert alert-warning d-flex align-items-center" colspan="2" role="alert">
                             <div colspan="2">
-                            <field name="helpful_commands" colspan="2" nolabel="1"/>
-                        </div>
+                                <field name="helpful_commands" colspan="2" nolabel="1"/>
+                            </div>
                         </div>
                     </group>
                     <group>
                         <separator string="Result"/>
                         <field name="result" colspan="2" nolabel="1"/>
                     </group>
+                    <separator/>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" groups="base.group_user"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
                 </sheet>
             </form>
         </field>
     </record>
-
+    <!--    Search Views-->
+    <record id="search_execute_postgres_view" model="ir.ui.view">
+        <field name="name">search.execute.postgres.view</field>
+        <field name="model">execute.postgres</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" string="Name"/>
+                <filter name="filter_favorite" string="Favorite" domain="[('priority', '=', '1')]"/>
+                <separator/>
+                <filter name="filter_archive" string="Archived" domain="[('active', '=', False)]"/>
+            </search>
+        </field>
+    </record>
+    <!--    Action Views-->
     <record id="action_execute_postgres" model="ir.actions.act_window">
         <field name="name">Execute PostgreSQL</field>
         <field name="type">ir.actions.act_window</field>
